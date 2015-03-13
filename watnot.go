@@ -37,6 +37,8 @@ func cat(p string) error {
 
 	scanner := bufio.NewScanner(f)
 
+    // Clear the screen first
+    fmt.Printf("\033[2J\033[;H");
 	for scanner.Scan() {
 		fmt.Println(scanner.Text())
 	}

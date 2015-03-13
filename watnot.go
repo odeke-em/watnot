@@ -32,13 +32,14 @@ func cat(p string) error {
 
 	isdir := (fileInfo.Mode() & os.ModeDir) != 0
 	if isdir {
-		return fmt.Errorf("cannot cat %s", p)
+		return fmt.Errorf("cat cannot open %s", p)
 	}
 
 	scanner := bufio.NewScanner(f)
 
-    // Clear the screen first
-    fmt.Printf("\033[2J\033[;H");
+	// Clear the screen first
+	fmt.Printf("\033[2J\033[;H")
+
 	for scanner.Scan() {
 		fmt.Println(scanner.Text())
 	}
@@ -54,8 +55,8 @@ func NewWatcher(p string) {
 	defer watcher.Close()
 	done := make(chan bool)
 
-    // Initial cat, at least once
-    cat(p)
+	// Initial cat, at least once
+	cat(p)
 
 	go func() {
 		for {
@@ -88,7 +89,7 @@ func main() {
 
 	absPath, err := filepath.Abs(argv[0])
 	if err != nil {
-		fmt.Fprintf(os.Stderr, "%v\n")
+		fmt.Fprintf(os.Stderr, "%v\n", err)
 		os.Exit(-2)
 	}
 	NewWatcher(absPath)

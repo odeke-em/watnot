@@ -53,6 +53,10 @@ func NewWatcher(p string) {
 
 	defer watcher.Close()
 	done := make(chan bool)
+
+    // Initial cat, at least once
+    cat(p)
+
 	go func() {
 		for {
 			select {

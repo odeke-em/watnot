@@ -67,6 +67,8 @@ func NewWatcher(p string) {
 				}
 			case err := <-watcher.Errors:
 				log.Println("error:", err)
+			default:
+				continue
 			}
 		}
 	}()
@@ -83,7 +85,7 @@ func main() {
 	argv := flag.Args()
 	argc := len(argv)
 	if argc < 1 {
-		fmt.Fprintf(os.Stderr, "expecting a file path at least")
+		fmt.Fprintf(os.Stderr, "expecting a file path at least\n")
 		os.Exit(-1)
 	}
 
